@@ -54,28 +54,6 @@ router.post("/deposit/:id", async (req, res) => {
 /* =========================
    WITHDRAW
 ========================= */
-router.post("/withdraw/:id", async (req, res) => {
-  try {
-    const { amount } = req.body;
-
-    const user = await User.findById(req.params.id);
-
-    if (user.balance < amount) {
-      return res.status(400).json({ message: "Insufficient funds" });
-    }
-
-    user.balance -= amount;
-    await user.save();
-
-    res.json({
-      message: "Withdrawal successful",
-      balance: user.balance
-    });
-
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
 
 /* =========================
    TRANSFER
